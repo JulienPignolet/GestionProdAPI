@@ -16,7 +16,7 @@ public class Film {
     private double popularity;
 
     @Column(name = "Vote_count")
-    private int voteCount;
+    private Long voteCount;
 
     @Column(name = "adult")
     private boolean adult;
@@ -27,15 +27,19 @@ public class Film {
     @Column(name = "Title")
     private String title;
 
-    @Column(name = "Vote_average")
-    private double vote_average;
+    @Column(name = "Original_title")
+    private String originalTitle;
 
+    @Column(name = "Vote_average")
+    private String voteAverage;
+
+    @Lob // pour les string > 255 char
     @Column(name = "Overview")
     private String overview;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "Release_date")
-    private Date release_date;
+    private Date releaseDate;
 
     public Long getId() {
         return id;
@@ -53,11 +57,11 @@ public class Film {
         this.popularity = popularity;
     }
 
-    public int getVoteCount() {
+    public Long getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(int voteCount) {
+    public void setVoteCount(Long voteCount) {
         this.voteCount = voteCount;
     }
 
@@ -85,14 +89,6 @@ public class Film {
         this.title = title;
     }
 
-    public double getVote_average() {
-        return vote_average;
-    }
-
-    public void setVote_average(double vote_average) {
-        this.vote_average = vote_average;
-    }
-
     public String getOverview() {
         return overview;
     }
@@ -101,11 +97,27 @@ public class Film {
         this.overview = overview;
     }
 
-    public Date getRelease_date() {
-        return release_date;
+    public Double getVoteAverage() {
+        return Double.parseDouble(voteAverage);
     }
 
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
+    public void setVoteAverage(String voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
     }
 }

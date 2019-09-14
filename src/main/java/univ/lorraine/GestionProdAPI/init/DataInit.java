@@ -1,5 +1,8 @@
 package univ.lorraine.GestionProdAPI.init;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -7,9 +10,11 @@ import org.springframework.stereotype.Component;
 import univ.lorraine.GestionProdAPI.dao.FilmDAO;
 import univ.lorraine.GestionProdAPI.entity.Film;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Component
 public class DataInit implements ApplicationRunner {
@@ -24,26 +29,43 @@ public class DataInit implements ApplicationRunner {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void run(ApplicationArguments args) throws Exception {
 
-        long count = filmDAO.count();
+        //JSON parser object to parse read file
+        JSONParser jsonParser = new JSONParser();
 
-        if (count == 0) {
-            Film f1 = new Film();
+        try (FileReader reader = new FileReader("datas.json"))
+        {
+            //Read JSON file
+            JSONObject  obj = (JSONObject) jsonParser.parse(reader);
 
-            f1.setTitle("John se balade en mer");
+            JSONArray filmList = (JSONArray) obj.get("results");
 
-            Date d1 = df.parse("1980-12-20");
-            f1.setRelease_date(d1);
-            //
-            Film f2 = new Film();
+            //Iterate over film array
+            filmList.forEach( film -> parseFilmObject( (JSONObject) film ) );
 
-            f1.setTitle("John se balade en foret");
-
-            Date d2 = df.parse("1990-11-27");
-            f1.setRelease_date(d2);
-            filmDAO.save(f1);
-            filmDAO.save(f2);
+        }catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    private void parseFilmObject(JSONObject film) {
+        Film temp = new Film();
+
+        temp.setTitle((String)film.get("title"));
+        temp.setVoteCount((Long)film.get("vote_count"));
+        temp.setAdult((Boolean) film.get("adult"));
+        temp.setOriginalLanguage((String) film.get("original_language"));
+        temp.setOriginalTitle((String) film.get("original_title"));
+        //temp.setVoteAverage((String) film.get("vote_average"));
+        temp.setOverview((String) film.get("overview"));
+        try {
+            temp.setReleaseDate( df.parse((String)film.get("release_date")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        filmDAO.save(temp);
     }
 }
