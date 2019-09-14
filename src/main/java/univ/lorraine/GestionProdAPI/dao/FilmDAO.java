@@ -8,4 +8,6 @@ import java.util.List;
 public interface FilmDAO extends CrudRepository<Film, Long> {
 
     public List<Film> findByTitleLike(String name);
+
+    public List<Film> findAll();
 }

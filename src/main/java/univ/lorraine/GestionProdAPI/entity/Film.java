@@ -97,8 +97,8 @@ public class Film {
         this.overview = overview;
     }
 
-    public Double getVoteAverage() {
-        return Double.parseDouble(voteAverage);
+    public String getVoteAverage() {
+        return voteAverage;
     }
 
     public void setVoteAverage(String voteAverage) {
