@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import univ.lorraine.GestionProdAPI.dao.FilmDAO;
 import univ.lorraine.GestionProdAPI.entity.Film;
@@ -35,7 +36,8 @@ public class DataInit implements ApplicationRunner {
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
 
-        try (FileReader reader = new FileReader("datas.json"))
+        try (FileReader reader = new FileReader(new ClassPathResource(
+                "datas.json").getFile()))
         {
             //Read JSON file
             JSONObject  obj = (JSONObject) jsonParser.parse(reader);
