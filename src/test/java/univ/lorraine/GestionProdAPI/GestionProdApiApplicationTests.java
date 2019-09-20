@@ -9,4 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class GestionProdApiApplicationTests {
 
+
+    @Test
+    public void exampleTest() {
+	        // TODO;
+    }
 }
