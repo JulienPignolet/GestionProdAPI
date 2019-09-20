@@ -31,14 +31,14 @@ public class MovieRestController {
      * Exemple de JSON
      * {
      "popularity": 54.766,
-     "vote_count": 2080,
+     "voteCount": 2080,
      "adult": false,
-     "original_language": "en",
-     "original_title": "Toy Stary GI",
+     "originalLanguage": "en",
+     "originalTitle": "Toy Stary GI",
      "title": "Toy Story 4",
-     "vote_average": 7.7,
+     "voteAverage": 7.7,
      "overview": "Woody has always been confident about his place in the world and that his priority is taking care of his kid, whether that's Andy or Bonnie. But when Bonnie adds a reluctant new toy called \"Forky\" to her room, a road trip adventure alongside old and new friends will show Woody how big the world can be for a toy.",
-     "release_date": "2019-06-21"
+     "releaseDate": "2019-06-21"
      }
      */
     @PostMapping
@@ -54,7 +54,7 @@ public class MovieRestController {
         filmDAO.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
+    
     @PutMapping("/{id}")
     public ResponseEntity put(@PathVariable Long id, @Valid @RequestBody Film film) {
         if (!findId(id)) {
