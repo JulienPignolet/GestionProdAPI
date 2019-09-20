@@ -37,7 +37,7 @@ public class DataInit implements ApplicationRunner {
         try (
                 InputStream initialStream =  getClass().getClassLoader().getResourceAsStream("datas.json");
 
-                Reader reader = new InputStreamReader(initialStream);
+                Reader reader = new InputStreamReader(initialStream)
         ) {
             //Read JSON file
             JSONObject obj = (JSONObject) jsonParser.parse(reader);
