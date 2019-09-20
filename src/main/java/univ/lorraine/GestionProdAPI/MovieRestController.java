@@ -1,5 +1,7 @@
 package univ.lorraine.GestionProdAPI;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,13 @@ public class MovieRestController {
         this.filmDAO = filmDAO;
     }
 
+    @ApiOperation(value = "Récupère l'ensemble des films disponibles")
     @GetMapping
     public ResponseEntity<List<Film>> findAllMovies(){
         return  ResponseEntity.ok(filmDAO.findAll());
     }
 
+    @ApiOperation(value = "Récupère le film grâce à son id si celui-ci existe")
     @GetMapping("/{id}")
     public ResponseEntity<Film> findOneMovie(@PathVariable Long id) { return ResponseEntity.ok(filmDAO.findOneById(id)); }
 
@@ -41,11 +45,13 @@ public class MovieRestController {
      "releaseDate": "2019-06-21"
      }
      */
+    @ApiOperation(value = "Création d'un film")
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody Film film) {
         return ResponseEntity.ok(filmDAO.save(film));
     }
 
+    @ApiOperation(value = "Suprresion d'un film à l'aide de son id si celui-ci existe")
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id){
         if (!findId(id)) {
@@ -54,7 +60,8 @@ public class MovieRestController {
         filmDAO.deleteById(id);
         return ResponseEntity.ok().build();
     }
-    
+
+    @ApiOperation(value = "Modification d'un film à l'aide de son id si celui-ci existe")
     @PutMapping("/{id}")
     public ResponseEntity put(@PathVariable Long id, @Valid @RequestBody Film film) {
         if (!findId(id)) {

@@ -9,8 +9,6 @@ import java.util.List;
 @Repository
 public interface FilmDAO extends CrudRepository<Film, Long> {
 
-    List<Film> findByTitleLike(String name);
-
     Film findOneById(Long id);
 
     List<Film> findAll();
