@@ -14,7 +14,6 @@ import java.util.List;
 public class MovieRestController {
     private FilmDAO filmDAO;
 
-
     @Autowired
     public MovieRestController(FilmDAO filmDAO) {
         this.filmDAO = filmDAO;
@@ -49,15 +48,37 @@ public class MovieRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id){
-        if (!filmDAO.findById(id).isPresent()) {
-            System.err.println("Id " + id + " is not existed");
+        if (!findId(id)) {
             ResponseEntity.badRequest().build();
         }
-
         filmDAO.deleteById(id);
-
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity put(@PathVariable Long id, @Valid @RequestBody Film film) {
+        if (!findId(id)) {
+            ResponseEntity.badRequest().build();
+        }
+        Film oldFilm = filmDAO.findOneById(id);
+        oldFilm.setPopularity(film.getPopularity());
+        oldFilm.setVoteCount(film.getVoteCount());
+        oldFilm.setAdult(film.isAdult());
+        oldFilm.setOriginalLanguage(film.getOriginalLanguage());
+        oldFilm.setOriginalTitle(film.getOriginalTitle());
+        oldFilm.setTitle(film.getTitle());
+        oldFilm.setVoteAverage(film.getVoteAverage());
+        oldFilm.setOverview(film.getOverview());
+        oldFilm.setReleaseDate(film.getReleaseDate());
+        return ResponseEntity.ok(filmDAO.save(oldFilm));
+    }
 
+    private boolean findId(Long id) {
+        if (filmDAO.findById(id).isPresent()) {
+            return true;
+        } else {
+            System.err.println("Id " + id + " is not existed");
+            return false;
+        }
+    }
 }
