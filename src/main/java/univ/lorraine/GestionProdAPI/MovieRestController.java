@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(("/movies"))
 public class MovieRestController {
-    private FilmDAO filmDAO;
+    private final FilmDAO filmDAO;
 
     @Autowired
     public MovieRestController(FilmDAO filmDAO) {

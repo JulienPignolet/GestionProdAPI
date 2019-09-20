@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 @Component
 public class DataInit implements ApplicationRunner {
 
-    private FilmDAO filmDAO;
+    private final FilmDAO filmDAO;
 
     private static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
