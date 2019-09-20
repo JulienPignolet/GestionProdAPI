@@ -1,5 +1,7 @@
 package univ.lorraine.GestionProdAPI;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import java.util.List;
 @RequestMapping(("/movies"))
 public class MovieRestController {
     private final FilmDAO filmDAO;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Autowired
     public MovieRestController(FilmDAO filmDAO) {
@@ -67,24 +71,17 @@ public class MovieRestController {
         if (!findId(id)) {
             ResponseEntity.badRequest().build();
         }
-        Film oldFilm = filmDAO.findOneById(id);
-        oldFilm.setPopularity(film.getPopularity());
-        oldFilm.setVoteCount(film.getVoteCount());
-        oldFilm.setAdult(film.isAdult());
-        oldFilm.setOriginalLanguage(film.getOriginalLanguage());
-        oldFilm.setOriginalTitle(film.getOriginalTitle());
-        oldFilm.setTitle(film.getTitle());
-        oldFilm.setVoteAverage(film.getVoteAverage());
-        oldFilm.setOverview(film.getOverview());
-        oldFilm.setReleaseDate(film.getReleaseDate());
-        return ResponseEntity.ok(filmDAO.save(oldFilm));
+
+        film.setId(id);
+
+        return ResponseEntity.ok(filmDAO.save(film));
     }
 
     private boolean findId(Long id) {
         if (filmDAO.findById(id).isPresent()) {
             return true;
         } else {
-            System.err.println("Id " + id + " is not existed");
+            logger.error("Id " + id + " is not existed");
             return false;
         }
     }
