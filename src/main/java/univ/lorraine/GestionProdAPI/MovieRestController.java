@@ -60,23 +60,17 @@ public class MovieRestController {
         if (!findId(id)) {
             ResponseEntity.badRequest().build();
         }
-        Film oldFilm = filmDAO.findOneById(id);
-        oldFilm.setPopularity(film.getPopularity());
-        oldFilm.setVoteCount(film.getVoteCount());
-        oldFilm.setAdult(film.isAdult());
-        oldFilm.setOriginalLanguage(film.getOriginalLanguage());
-        oldFilm.setOriginalTitle(film.getOriginalTitle());
-        oldFilm.setTitle(film.getTitle());
-        oldFilm.setVoteAverage(film.getVoteAverage());
-        oldFilm.setOverview(film.getOverview());
-        oldFilm.setReleaseDate(film.getReleaseDate());
-        return ResponseEntity.ok(filmDAO.save(oldFilm));
+
+        film.setId(id);
+
+        return ResponseEntity.ok(filmDAO.save(film));
     }
 
     private boolean findId(Long id) {
         if (filmDAO.findById(id).isPresent()) {
             return true;
         } else {
+            // TODO repalce with logger
             System.err.println("Id " + id + " is not existed");
             return false;
         }
