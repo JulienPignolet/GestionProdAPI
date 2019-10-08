@@ -12,14 +12,14 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class FilmResearchTests {
+class FilmResearchTests {
     @ParameterizedTest
     @CsvSource({"Tĥïŝ ĩš â fůňķŷ Šťŕĭńġ,This is a funky String,[Test Suppression des accents]",
             "Une phrase sans accents,Une phrase sans accents,[Test Phrase sans accents]",
             ",,[Test Null]",
             "'','',[Test Empty]",
             "'            ','            ',[Test Whitespace]"})
-    public void stripDiacriticsTest(String testString, String expected, String message) {
+    void stripDiacriticsTest(String testString, String expected, String message) {
         assertEquals(message, expected, FilmResearch.stripDiacritics(testString));
     }
 
@@ -31,7 +31,7 @@ public class FilmResearchTests {
             "É,e,1,[Test identique mais accent et majuscule]",
             "a,b,-2,[Test différent]"
             })
-    public void compareTwoLetterTest(char testLetter1, char testLetter2, int expected, String message) {
+    void compareTwoLetterTest(char testLetter1, char testLetter2, int expected, String message) {
         assertEquals(message, expected, FilmResearch.compareTwoLetter(testLetter1, testLetter2));
     }
 
@@ -43,7 +43,7 @@ public class FilmResearchTests {
             ",,-2,[Test null]",
             "'','',-2,[Test empty]",
             "'   ','   ',-2,[Test whitespace]"})
-    public void compareTwoWordsTest(String testFilmTitle, String testExp, int expected, String message) {
+    void compareTwoWordsTest(String testFilmTitle, String testExp, int expected, String message) {
         assertEquals(message, expected, FilmResearch.compareTwoWords(testFilmTitle, testExp, 0));
     }
 
@@ -59,12 +59,12 @@ public class FilmResearchTests {
             "'','',-2,[Test empty]",
             "'   ','   ',-2,[Test whitespace]",
             ",,-2,[Test null]"})
-    public void evalScoreTest(String testFilmTitle, String testExp, int expected, String message) {
+    void evalScoreTest(String testFilmTitle, String testExp, int expected, String message) {
         assertEquals(message, expected, FilmResearch.evalScore(testFilmTitle, testExp));
     }
 
     @Test
-    public void researchTest() {
+    void researchTest() {
         Film testFilm1 = new Film();
         testFilm1.setTitle("toto");
         Film testFilm2 = new Film();
@@ -89,7 +89,7 @@ public class FilmResearchTests {
     }
 
     @Test
-    public void researchTestBadCases() {
+    void researchTestBadCases() {
         assertTrue(FilmResearch.research(null, "ok").isEmpty());
         assertTrue(FilmResearch.research(new ArrayList<>(), "ok").isEmpty());
         assertTrue(FilmResearch.research(new ArrayList<>(), "").isEmpty());

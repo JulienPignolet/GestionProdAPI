@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class FilmResearch {
     // Pattern pour enlever les adds du normalizer
-    public static final Pattern DIACRITICS_AND_FRIENDS
+    private static final Pattern DIACRITICS_AND_FRIENDS
             = Pattern.compile("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
 
     /**
