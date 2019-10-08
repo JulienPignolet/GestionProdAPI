@@ -26,7 +26,7 @@ public class FilmResearch {
                  filmByScore.add(new AbstractMap.SimpleImmutableEntry<>(film, score));
              }
         }
-        Collections.sort(filmByScore, Collections.reverseOrder(Comparator.comparing(Map.Entry::getValue)));
+        filmByScore.sort(Collections.reverseOrder(Comparator.comparing(Map.Entry::getValue)));
         return filmByScore.stream()
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());

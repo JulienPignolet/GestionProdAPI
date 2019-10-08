@@ -3,10 +3,8 @@ package univ.lorraine.GestionProdAPI;
 import univ.lorraine.GestionProdAPI.entity.Film;
 import univ.lorraine.GestionProdAPI.facade.FilmResearch;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class FilmResearchTests {
     public static void main(String[] args) {
