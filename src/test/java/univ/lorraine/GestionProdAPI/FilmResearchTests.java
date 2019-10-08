@@ -9,7 +9,7 @@ import java.util.List;
 public class FilmResearchTests {
     public static void main(String[] args) {
         Film f1 = new Film();
-        f1.setTitle("Tête");
+        f1.setTitle("Teton");
         Film f2 = new Film();
         f2.setTitle("tete");
         Film f3 = new Film();
