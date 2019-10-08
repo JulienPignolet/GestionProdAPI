@@ -1,32 +1,99 @@
 package univ.lorraine.GestionProdAPI;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import univ.lorraine.GestionProdAPI.entity.Film;
 import univ.lorraine.GestionProdAPI.facade.FilmResearch;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class FilmResearchTests {
-    public static void main(String[] args) {
-        Film f1 = new Film();
-        f1.setTitle("Teton");
-        Film f2 = new Film();
-        f2.setTitle("tete");
-        Film f3 = new Film();
-        f3.setTitle("tacle");
-        Film f4 = new Film();
-        f4.setTitle("t eop");
-        Film f5 = new Film();
-        f5.setTitle("bÉte");
-        List<Film> fList = new ArrayList<>();
-        fList.add(f5);
-        fList.add(f1);
-        fList.add(f2);
-        fList.add(f3);
-        FilmResearch fSearch = new FilmResearch();
-        fList = fSearch.research(fList, "be");
-        for (Film film : fList) {
-            System.out.println(film.getTitle());
-        }
+    @ParameterizedTest
+    @CsvSource({"Tĥïŝ ĩš â fůňķŷ Šťŕĭńġ,This is a funky String,[Test Suppression des accents]",
+            "Une phrase sans accents,Une phrase sans accents,[Test Phrase sans accents]",
+            ",,[Test Null]",
+            "'','',[Test Empty]",
+            "'            ','            ',[Test Whitespace]"})
+    public void stripDiacriticsTest(String testString, String expected, String message) {
+        assertEquals(message, expected, FilmResearch.stripDiacritics(testString));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"' ',a,-1,[Test espace]",
+            "a,a,4,[Test identique]",
+            "A,a,3,[Test identique mais majuscule]",
+            "é,e,2,[Test identique mais accent]",
+            "É,e,1,[Test identique mais accent et majuscule]",
+            "a,b,-2,[Test différent]"
+            })
+    public void compareTwoLetterTest(char testLetter1, char testLetter2, int expected, String message) {
+        assertEquals(message, expected, FilmResearch.compareTwoLetter(testLetter1, testLetter2));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"tea,te,8,[Test trouvé]",
+            "tea,tea,12,[Test trouvé]",
+            "ate,te,-2,[Test non trouvé]",
+            "blo,te,-2,[Test non trouvé]",
+            ",,-2,[Test null]",
+            "'','',-2,[Test empty]",
+            "'   ','   ',-2,[Test whitespace]"})
+    public void compareTwoWordsTest(String testFilmTitle, String testExp, int expected, String message) {
+        assertEquals(message, expected, FilmResearch.compareTwoWords(testFilmTitle, testExp, 0));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"tea,tea,12,[Test trouvé]",
+            "thetea,tea,12,[Test trouvé]",
+            "l amende,lame,15,[Test identique mais espace]",
+            "thé,the,10,[Test identique mais accent]",
+            "THE PLAYER,the,9,[Test identique mais majuscule]",
+            "THÉ GLACÉ,the,7,[Test identique mais majuscule et accentué]",
+            "t    hOP,th,4,[Test multiples espaces]",
+            "t,tea,-2,[Test non trouvé]",
+            "'','',-2,[Test empty]",
+            "'   ','   ',-2,[Test whitespace]",
+            ",,-2,[Test null]"})
+    public void evalScoreTest(String testFilmTitle, String testExp, int expected, String message) {
+        assertEquals(message, expected, FilmResearch.evalScore(testFilmTitle, testExp));
+    }
+
+    @Test
+    public void researchTest() {
+        Film testFilm1 = new Film();
+        testFilm1.setTitle("toto");
+        Film testFilm2 = new Film();
+        testFilm2.setTitle("tete");
+        Film testFilm3 = new Film();
+        testFilm3.setTitle("Tete");
+        Film testFilm4 = new Film();
+        testFilm4.setTitle("T    ëton");
+        Film testFilm5 = new Film();
+        testFilm5.setTitle("Pirouett  e");
+        List<Film> testFilmList = new ArrayList<>();
+        testFilmList.add(testFilm1);
+        testFilmList.add(testFilm2);
+        testFilmList.add(testFilm3);
+        testFilmList.add(testFilm4);
+        testFilmList.add(testFilm5);
+        testFilmList = FilmResearch.research(testFilmList, "te");
+        assertEquals(testFilm2.getTitle(), testFilmList.get(0).getTitle());
+        assertEquals(testFilm3.getTitle(), testFilmList.get(1).getTitle());
+        assertEquals(testFilm5.getTitle(), testFilmList.get(2).getTitle());
+        assertEquals(testFilm4.getTitle(), testFilmList.get(3).getTitle());
+    }
+
+    @Test
+    public void researchTestBadCases() {
+        assertTrue(FilmResearch.research(null, "ok").isEmpty());
+        assertTrue(FilmResearch.research(new ArrayList<>(), "ok").isEmpty());
+        assertTrue(FilmResearch.research(new ArrayList<>(), "").isEmpty());
+        assertTrue(FilmResearch.research(new ArrayList<>(), null).isEmpty());
+        assertTrue(FilmResearch.research(new ArrayList<>(), "   ").isEmpty());
     }
 }

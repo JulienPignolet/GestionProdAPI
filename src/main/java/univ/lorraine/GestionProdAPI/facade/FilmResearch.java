@@ -1,5 +1,6 @@
 package univ.lorraine.GestionProdAPI.facade;
 
+import org.junit.platform.commons.util.StringUtils;
 import univ.lorraine.GestionProdAPI.entity.Film;
 
 import java.text.Normalizer;
@@ -18,7 +19,10 @@ public class FilmResearch {
      * @param exp expression à trouver
      * @return Liste de films
      */
-    public List<Film> research(List<Film> allFilms, String exp) {
+    public static List<Film> research(List<Film> allFilms, String exp) {
+        if (StringUtils.isBlank(exp) || allFilms == null || allFilms.isEmpty()) {
+            return new ArrayList<>();
+        }
         List<Map.Entry<Film, Integer>> filmByScore = new ArrayList<>();
         for (Film film : allFilms) {
              int score = evalScore(film.getTitle(), exp);
@@ -38,8 +42,11 @@ public class FilmResearch {
      * @param exp expression donnée
      * @return score du film
      */
-    public int evalScore(String filmTitle, String exp) {
+    public static int evalScore(String filmTitle, String exp) {
         int max = -2;
+        if (StringUtils.isBlank(filmTitle) || StringUtils.isBlank(exp)) {
+            return -2;
+        }
         while (filmTitle.length() >= exp.length()) {
             int compare = compareTwoWords(filmTitle, exp, 0);
             max = Math.max(compare, max);
@@ -55,7 +62,10 @@ public class FilmResearch {
      * @param score score de la recherche
      * @return score de la recherche
      */
-    public int compareTwoWords(String filmTitle, String exp, int score) {
+    public static int compareTwoWords(String filmTitle, String exp, int score) {
+        if ((StringUtils.isBlank(filmTitle) || StringUtils.isBlank(exp)) && score == 0) {
+            return -2;
+        }
         if (exp.length() == 0) {
             return score;
         } else {
@@ -76,7 +86,7 @@ public class FilmResearch {
      * 3 = identique mais majuscule
      * 4 = identique
      */
-    public int compareTwoLetter(char filmLetter, char expLetter) {
+    public static int compareTwoLetter(char filmLetter, char expLetter) {
         if (filmLetter == ' ') {
             return -1;
         } else if (expLetter == filmLetter) {
@@ -98,9 +108,11 @@ public class FilmResearch {
      * @param str chaîne à normaliser
      * @return chaîne normalisée
      */
-    public String stripDiacritics(String str) {
-        str = Normalizer.normalize(str, Normalizer.Form.NFD);
-        str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
+    public static String stripDiacritics(String str) {
+        if (!StringUtils.isBlank(str)) {
+            str = Normalizer.normalize(str, Normalizer.Form.NFD);
+            str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
+        }
         return str;
     }
 }
