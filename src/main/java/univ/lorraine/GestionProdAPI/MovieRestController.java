@@ -1,14 +1,17 @@
 package univ.lorraine.GestionProdAPI;
 
 import io.swagger.annotations.ApiParam;
+import org.junit.platform.commons.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import univ.lorraine.GestionProdAPI.dao.FilmDAO;
 import univ.lorraine.GestionProdAPI.entity.Film;
+import univ.lorraine.GestionProdAPI.facade.FilmResearch;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,10 +27,14 @@ public class MovieRestController {
         this.filmDAO = filmDAO;
     }
 
-    @ApiOperation(value = "Récupère l'ensemble des films disponibles")
+    @ApiOperation(value = "Récupère l'ensemble des films spécifiés (selon si title est spécifié ou non)")
     @GetMapping
-    public ResponseEntity<List<Film>> findAllMovies(){
-        return  ResponseEntity.ok(filmDAO.findAll());
+    public ResponseEntity<List<Film>> searchMovies(@ApiParam(value = "Paramètre optionnel. Si title n'est pas renseigné récupère l'ensemble des films, sinon lance une recherche sur les titres contenant cette expression") @RequestParam(value = "title", required = false) String exp) {
+        if (StringUtils.isBlank(exp)) {
+            return  ResponseEntity.ok(filmDAO.findAll());
+        } else {
+            return new ResponseEntity<>(FilmResearch.research(filmDAO.findAll(), exp), HttpStatus.OK);
+        }
     }
 
     @ApiOperation(value = "Récupère le film grâce à son id si celui-ci existe")
