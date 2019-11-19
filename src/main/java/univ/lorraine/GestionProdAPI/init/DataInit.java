@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 import univ.lorraine.GestionProdAPI.dao.FilmDAO;
 import univ.lorraine.GestionProdAPI.entity.Film;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,10 +39,8 @@ public class DataInit implements ApplicationRunner {
         
         try (
                 InputStream initialStream =  getClass().getClassLoader().getResourceAsStream("datas.json");
-
-        try (FileReader reader = new FileReader(new ClassPathResource(
-                "datas.json").getFile()))
-        {
+                Reader reader = new InputStreamReader(initialStream);
+        ) {
             //Read JSON file
             JSONObject obj = (JSONObject) jsonParser.parse(reader);
 

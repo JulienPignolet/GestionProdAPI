@@ -1,10 +1,10 @@
 package univ.lorraine.GestionProdAPI;
 
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.junit.platform.commons.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +12,23 @@ import org.springframework.web.bind.annotation.*;
 import univ.lorraine.GestionProdAPI.dao.FilmDAO;
 import univ.lorraine.GestionProdAPI.entity.Film;
 import univ.lorraine.GestionProdAPI.facade.FilmResearch;
+import univ.lorraine.GestionProdAPI.service.MetricService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(("/movies"))
 public class MovieRestController {
     private final FilmDAO filmDAO;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private MetricService metricService;
+
+    @Autowired
+    private MetricService metricServiceBase;
 
     @Autowired
     public MovieRestController(FilmDAO filmDAO) {
@@ -39,7 +47,11 @@ public class MovieRestController {
 
     @ApiOperation(value = "Récupère le film grâce à son id si celui-ci existe")
     @GetMapping("/{id}")
-    public ResponseEntity<Film> findOneMovie(@ApiParam(value = "id du film") @PathVariable Long id) { return ResponseEntity.ok(filmDAO.findOneById(id)); }
+    public ResponseEntity findOneMovie(@ApiParam(value = "id du film") @PathVariable Long id) {
+        Film film = filmDAO.findOneById(id);
+
+        return film != null ? ResponseEntity.ok(film) : ResponseEntity.notFound().build();
+    }
 
     @ApiOperation(value = "Création d'un film")
     @PostMapping
@@ -75,4 +87,26 @@ public class MovieRestController {
             return false;
         }
     }
+
+
+    // API METRICS
+    /**
+        @RequestMapping(value = "/metric-graph-data", method = RequestMethod.GET)
+    @ResponseBody
+    public Object[][] getMetricData() {
+        return metricService.getGraphData();
+    }
+**/
+    @RequestMapping(value = "/status-metric", method = RequestMethod.GET)
+    @ResponseBody
+    public Map getStatusMetric() {
+        return metricService.getFullMetric();
+    }
+
+    @RequestMapping(value = "/metric-graph-data", method = RequestMethod.GET)
+    @ResponseBody
+    public Object[][] getMetricData() {
+        return metricService.getGraphData();
+    }
+
 }
