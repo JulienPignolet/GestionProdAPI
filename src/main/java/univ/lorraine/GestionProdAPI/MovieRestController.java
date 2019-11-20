@@ -16,16 +16,12 @@ import univ.lorraine.GestionProdAPI.service.MetricService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(("/movies"))
 public class MovieRestController {
     private final FilmDAO filmDAO;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    private MetricService metricService;
 
     @Autowired
     private MetricService metricServiceBase;
@@ -88,25 +84,5 @@ public class MovieRestController {
         }
     }
 
-
-    // API METRICS
-    /**
-        @RequestMapping(value = "/metric-graph-data", method = RequestMethod.GET)
-    @ResponseBody
-    public Object[][] getMetricData() {
-        return metricService.getGraphData();
-    }
-**/
-    @RequestMapping(value = "/status-metric", method = RequestMethod.GET)
-    @ResponseBody
-    public Map getStatusMetric() {
-        return metricService.getFullMetric();
-    }
-
-    @RequestMapping(value = "/metric-graph-data", method = RequestMethod.GET)
-    @ResponseBody
-    public Object[][] getMetricData() {
-        return metricService.getGraphData();
-    }
 
 }
