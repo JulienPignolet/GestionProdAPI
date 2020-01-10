@@ -6,6 +6,9 @@ services:
       #network pour traefik
       - 'traefik-public'
     deploy:
+      placements:
+        constraints:
+          - node.labels.target == fac
        replicas: 1
        update_config:
          parallelism: 1
