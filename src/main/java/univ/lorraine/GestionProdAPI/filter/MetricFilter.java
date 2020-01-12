@@ -22,12 +22,15 @@ public class MetricFilter extends OncePerRequestFilter {
         HttpServletRequest httpRequest = ((HttpServletRequest) request);
         String req = httpRequest.getMethod() + " " + httpRequest.getRequestURI();
 
-        if(!req.equals("GET /favicon.ico")){
+        if(!req.equals("GET /favicon.ico") ){
             chain.doFilter(request, response);
             int status = ((HttpServletResponse) response).getStatus();
             System.out.println("1 requete : " + req + " " + status);
 
-            metricService.increaseCount(req, status);
+            if( !req.equals("GET /graphe") && !req.equals("GET /metric-graph-data")){
+                metricService.increaseCount(req, status);
+
+            }
         }
     }
 }

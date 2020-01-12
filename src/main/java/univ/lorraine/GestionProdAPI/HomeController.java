@@ -1,5 +1,7 @@
 package univ.lorraine.GestionProdAPI;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(("/"))
+@Api(value = "Home", description = "Gestion des metrics", tags = "home")
 public class HomeController {
 
     private final MetricService metricService;
@@ -29,18 +32,21 @@ public class HomeController {
      return metricService.getGraphData();
      }
      **/
+    @ApiOperation(value = "Récupération de toutes les données liées aux metrics de l'application")
     @RequestMapping(value = "/status-metric", method = RequestMethod.GET)
     @ResponseBody
     public Map getStatusMetric() {
         return metricService.getFullMetric();
     }
 
+    @ApiOperation(value = "Récupération des données pour faire un graphe")
     @RequestMapping(value = "/metric-graph-data", method = RequestMethod.GET)
     @ResponseBody
     public Object[][] getMetricData() {
         return metricService.getGraphData();
     }
 
+    @ApiOperation(value = "Accès à la page du graphe des metrics")
     @GetMapping("/graphe")
     public String getGraphe() {
         return "metric";
