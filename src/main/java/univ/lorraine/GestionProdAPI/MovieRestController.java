@@ -1,5 +1,6 @@
 package univ.lorraine.GestionProdAPI;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.junit.platform.commons.util.StringUtils;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(("/movies"))
+@Api(value = "Films", description = "REST API des films", tags = "Films")
 public class MovieRestController {
     private final FilmDAO filmDAO;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
