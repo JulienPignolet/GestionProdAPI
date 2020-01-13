@@ -19,9 +19,9 @@ public class MetricService  {
 
     public MetricService() {
         super();
-        metricMap = new ConcurrentHashMap<String, ConcurrentHashMap<Integer, Integer>>();
-        statusMetric = new ConcurrentHashMap<Integer, Integer>();
-        timeMap = new ConcurrentHashMap<String, ConcurrentHashMap<Integer, Integer>>();
+        metricMap = new ConcurrentHashMap<>();
+        statusMetric = new ConcurrentHashMap<>();
+        timeMap = new ConcurrentHashMap<>();
     }
 
     // API
@@ -38,9 +38,9 @@ public class MetricService  {
 
             s.append("Nom de la page : ").append(entry.getKey());
             s.append("<br>");
-            entry.getValue().forEach((code, number) -> {
-                s.append("Code : ").append(code).append(" apparu ").append(number).append(" fois.");
-            });
+            entry.getValue().forEach((code, number) ->
+                s.append("Code : ").append(code).append(" apparu ").append(number).append(" fois.")
+            );
 
             s.append("<br>");
             s.append("<br>");
@@ -92,7 +92,7 @@ public class MetricService  {
     private void increaseMainMetric(final String request, final int status) {
         ConcurrentHashMap<Integer, Integer> statusMap = metricMap.get(request);
         if (statusMap == null) {
-            statusMap = new ConcurrentHashMap<Integer, Integer>();
+            statusMap = new ConcurrentHashMap<>();
         }
 
         Integer count = statusMap.get(status);
@@ -106,19 +106,14 @@ public class MetricService  {
     }
 
     private void increaseStatusMetric(final int status) {
-        final Integer statusCount = statusMetric.get(status);
-        if (statusCount == null) {
-            statusMetric.put(status, 1);
-        } else {
-            statusMetric.put(status, statusCount + 1);
-        }
+        statusMetric.merge(status, 1, (a, b) -> a + b);
     }
 
     private void updateTimeMap(final int status) {
         final String time = dateFormat.format(new Date());
         ConcurrentHashMap<Integer, Integer> statusMap = timeMap.get(time);
         if (statusMap == null) {
-            statusMap = new ConcurrentHashMap<Integer, Integer>();
+            statusMap = new ConcurrentHashMap<>();
         }
 
         Integer count = statusMap.get(status);

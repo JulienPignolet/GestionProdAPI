@@ -23,8 +23,7 @@ public class MetricFilter extends OncePerRequestFilter {
 
         if(!req.equals("GET /favicon.ico") ){
             chain.doFilter(request, response);
-            int status = ((HttpServletResponse) response).getStatus();
-            //System.out.println("1 requete : " + req + " " + status);
+            int status = response.getStatus();
 
             if( !req.equals("GET /graphe") && !req.equals("GET /metric-graph-data")){
                 metricService.increaseCount(req, status);

@@ -63,7 +63,7 @@ public class DataInit implements ApplicationRunner {
         temp.setOriginalLanguage((String) film.get("original_language"));
         temp.setOriginalTitle((String) film.get("original_title"));
         temp.setPopularity((Double) film.get("popularity"));
-        System.out.println(film);
+
         temp.setVoteAverage(film.get("vote_average").toString());
         temp.setOverview((String) film.get("overview"));
         try {
