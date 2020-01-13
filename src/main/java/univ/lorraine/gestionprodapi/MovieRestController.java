@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import univ.lorraine.gestionprodapi.dao.FilmDAO;
-import univ.lorraine.gestionprodapi.dto.FilmDTO;
 import univ.lorraine.gestionprodapi.entity.Film;
 import univ.lorraine.gestionprodapi.facade.FilmResearch;
 import univ.lorraine.gestionprodapi.service.MetricService;
@@ -54,8 +53,8 @@ public class MovieRestController {
 
     @ApiOperation(value = "Création d'un film")
     @PostMapping
-    public ResponseEntity create(@ApiParam(value = "json du film") @Valid @RequestBody FilmDTO film) {
-        return ResponseEntity.ok(filmDAO.save(new Film(film)));
+    public ResponseEntity create(@ApiParam(value = "json du film") @Valid @RequestBody Film film) {
+        return ResponseEntity.ok(filmDAO.save(film));
     }
 
     @ApiOperation(value = "Suprresion d'un film à l'aide de son id si celui-ci existe")
@@ -70,8 +69,7 @@ public class MovieRestController {
 
     @ApiOperation(value = "Modification d'un film à l'aide de son id si celui-ci existe")
     @PutMapping("/{id}")
-    public ResponseEntity put(@ApiParam(value = "id du film") @PathVariable Long id, @ApiParam(value = "json du film") @Valid @RequestBody FilmDTO filmDTO) {
-        Film film = new Film(filmDTO);
+    public ResponseEntity put(@ApiParam(value = "id du film") @PathVariable Long id, @ApiParam(value = "json du film") @Valid @RequestBody Film film) {
         if (!findId(id)) {
             ResponseEntity.badRequest().build();
         }
