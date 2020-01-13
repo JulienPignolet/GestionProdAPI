@@ -23,7 +23,7 @@ public class DataInit implements ApplicationRunner {
 
     private final FilmDAO filmDAO;
 
-    private static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     public DataInit(FilmDAO filmDAO) {

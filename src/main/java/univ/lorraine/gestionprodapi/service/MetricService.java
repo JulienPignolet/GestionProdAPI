@@ -15,7 +15,7 @@ public class MetricService  {
     private ConcurrentMap<String, ConcurrentHashMap<Integer, Integer>> metricMap;
     private ConcurrentMap<Integer, Integer> statusMetric;
     private ConcurrentMap<String, ConcurrentHashMap<Integer, Integer>> timeMap;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     public MetricService() {
         super();
