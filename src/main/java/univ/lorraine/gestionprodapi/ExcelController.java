@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(("/excel"))
-@Api(value = "Excel", tags = "Excel")
+@Api(value = "Excel", description = "Extraction Excel", tags = "Excel")
 public class ExcelController {
     private final FilmDAO filmDAO;
 
