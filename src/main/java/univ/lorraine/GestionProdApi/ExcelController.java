@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdAPI;
+package univ.lorraine.GestionProdApi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import univ.lorraine.GestionProdAPI.dao.FilmDAO;
-import univ.lorraine.GestionProdAPI.entity.Film;
-import univ.lorraine.GestionProdAPI.facade.ExcelReport;
-import univ.lorraine.GestionProdAPI.facade.FilmResearch;
+import univ.lorraine.GestionProdApi.dao.FilmDAO;
+import univ.lorraine.GestionProdApi.entity.Film;
+import univ.lorraine.GestionProdApi.facade.ExcelReport;
+import univ.lorraine.GestionProdApi.facade.FilmResearch;
 
 import java.util.List;
 

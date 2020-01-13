@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdAPI.configuration;
+package univ.lorraine.GestionProdApi.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("univ.lorraine.GestionProdAPI"))
+                .apis(RequestHandlerSelectors.basePackage("univ.lorraine.GestionProdApi"))
                 .paths(PathSelectors.any())
                 .build();
     }

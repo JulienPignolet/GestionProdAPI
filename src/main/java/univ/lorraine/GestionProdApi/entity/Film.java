@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdAPI.entity;
+package univ.lorraine.GestionProdApi.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

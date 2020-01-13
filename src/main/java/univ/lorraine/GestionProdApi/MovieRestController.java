@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdAPI;
+package univ.lorraine.GestionProdApi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,17 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import univ.lorraine.GestionProdAPI.dao.FilmDAO;
-import univ.lorraine.GestionProdAPI.entity.Film;
-import univ.lorraine.GestionProdAPI.facade.FilmResearch;
-import univ.lorraine.GestionProdAPI.service.MetricService;
+import univ.lorraine.GestionProdApi.dao.FilmDAO;
+import univ.lorraine.GestionProdApi.entity.Film;
+import univ.lorraine.GestionProdApi.facade.FilmResearch;
+import univ.lorraine.GestionProdApi.service.MetricService;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(("/movies"))
-@Api(value = "Films", description = "REST API des films", tags = "Films")
+@Api(value = "Films", tags = "Films")
 public class MovieRestController {
     private final FilmDAO filmDAO;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -81,7 +81,7 @@ public class MovieRestController {
         if (filmDAO.findById(id).isPresent()) {
             return true;
         } else {
-            logger.error("Id " + id + " is not existed");
+            logger.error("Id {} is not existed",id);
             return false;
         }
     }

@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdAPI.service;
+package univ.lorraine.GestionProdApi.service;
 
 import org.springframework.stereotype.Service;
 
@@ -30,6 +30,23 @@ public class MetricService  {
         increaseMainMetric(request, status);
         increaseStatusMetric(status);
         updateTimeMap(status);
+    }
+
+    public String get404Page(){
+        StringBuilder s = new StringBuilder();
+        for (Map.Entry<String,ConcurrentHashMap<Integer, Integer>> entry : metricMap.entrySet()){
+
+            s.append("Nom de la page : ").append(entry.getKey());
+            s.append("<br>");
+            entry.getValue().forEach((code, number) -> {
+                s.append("Code : ").append(code).append(" apparu ").append(number).append(" fois.");
+            });
+
+            s.append("<br>");
+            s.append("<br>");
+        }
+
+        return s.toString();
     }
 
     public Map getFullMetric() {

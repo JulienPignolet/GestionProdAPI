@@ -1,8 +1,8 @@
-package univ.lorraine.GestionProdAPI.dao;
+package univ.lorraine.GestionProdApi.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import univ.lorraine.GestionProdAPI.entity.Film;
+import univ.lorraine.GestionProdApi.entity.Film;
 
 import java.util.List;
 

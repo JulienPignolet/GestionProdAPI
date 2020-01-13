@@ -48,11 +48,29 @@
 
 
         }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'metric-error');
+        xhr.send(null);
+
+        xhr.onreadystatechange = function () {
+            var DONE = 4; // readyState 4 means the request is done.
+            var OK = 200; // status 200 is a successful return.
+            if (xhr.readyState === DONE) {
+                if (xhr.status === OK) {
+                    document.getElementById("error_div").innerHTML = xhr.responseText;
+                } else {
+                    console.log('Error: ' + xhr.status); // An error occurred during the request.
+                }
+            }
+        };
     </script>
 </head>
 
 <body>
 <!--Div that will hold the pie chart-->
 <div id="chart_div" style="width:400; height:300"></div>
+
+<div id="error_div" style="width:400; height:300"></div>
 </body>
 </html>

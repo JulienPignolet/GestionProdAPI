@@ -1,7 +1,7 @@
-package univ.lorraine.GestionProdAPI.facade;
+package univ.lorraine.GestionProdApi.facade;
 
 import org.junit.platform.commons.util.StringUtils;
-import univ.lorraine.GestionProdAPI.entity.Film;
+import univ.lorraine.GestionProdApi.entity.Film;
 
 import java.text.Normalizer;
 import java.util.*;

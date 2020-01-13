@@ -1,14 +1,15 @@
-package univ.lorraine.GestionProdAPI;
+package univ.lorraine.GestionProdApi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import univ.lorraine.GestionProdAPI.service.MetricService;
+import univ.lorraine.GestionProdApi.service.MetricService;
 
 import java.util.Map;
 
@@ -39,8 +40,15 @@ public class HomeController {
         return metricService.getFullMetric();
     }
 
+    @ApiOperation(value = "Récupération des pages qui ont générée des erreurs")
+    @GetMapping(value = "/metric-error")
+    @ResponseBody
+    public String getErrorMetric() {
+        return metricService.get404Page();
+    }
+
     @ApiOperation(value = "Récupération des données pour faire un graphe")
-    @RequestMapping(value = "/metric-graph-data", method = RequestMethod.GET)
+    @GetMapping(value = "/metric-graph-data")
     @ResponseBody
     public Object[][] getMetricData() {
         return metricService.getGraphData();
@@ -50,5 +58,15 @@ public class HomeController {
     @GetMapping("/graphe")
     public String getGraphe() {
         return "metric";
+    }
+
+    @ApiOperation(value = "Retourne une erreur 500 de manière random")
+    @GetMapping("/error-500")
+    public ResponseEntity getError500() {
+        if(Math.random() * ( 10 ) > 5){
+            return ResponseEntity.ok("Pas d'erreur");
+        }else{
+            return ResponseEntity.status(500).build();
+        }
     }
 }
