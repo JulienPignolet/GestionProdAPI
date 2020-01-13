@@ -10,7 +10,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import univ.lorraine.gestionprodapi.dao.FilmDAO;
-import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.entity.FilmEntity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,7 +60,7 @@ public class DataInit implements ApplicationRunner {
     }
 
     private void parseFilmObject(JSONObject film) {
-        Film temp = new Film();
+        FilmEntity temp = new FilmEntity();
 
         temp.setTitle((String) film.get("title"));
         temp.setVoteCount((Long) film.get("vote_count"));

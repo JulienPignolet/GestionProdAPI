@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
-import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.entity.FilmEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +15,7 @@ public class ExcelReport extends AbstractXlsView {
     @Override
     protected void buildExcelDocument(Map<String, Object> map, Workbook workbook, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
         httpServletResponse.setHeader("Content-Disposition", "attachment;filename=\"films.xls\"");
-        List<Film> filmList = (List<Film>) map.get("filmList");
+        List<FilmEntity> filmList = (List<FilmEntity>) map.get("filmList");
         Sheet sheet = workbook.createSheet("Film Data");
 
         Row header = sheet.createRow(0);
@@ -31,7 +31,7 @@ public class ExcelReport extends AbstractXlsView {
         header.createCell(9).setCellValue("Catégorie adulte");
 
         int rowNum = 1;
-        for (Film film : filmList) {
+        for (FilmEntity film : filmList) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(film.getId());
             row.createCell(1).setCellValue(film.getTitle());

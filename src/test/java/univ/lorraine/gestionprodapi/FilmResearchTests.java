@@ -3,7 +3,7 @@ package univ.lorraine.gestionprodapi;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.entity.FilmEntity;
 import univ.lorraine.gestionprodapi.facade.FilmResearch;
 
 import java.util.ArrayList;
@@ -65,17 +65,17 @@ class FilmResearchTests {
 
     @Test
     void researchTest() {
-        Film testFilm1 = new Film();
+        FilmEntity testFilm1 = new FilmEntity();
         testFilm1.setTitle("toto");
-        Film testFilm2 = new Film();
+        FilmEntity testFilm2 = new FilmEntity();
         testFilm2.setTitle("tete");
-        Film testFilm3 = new Film();
+        FilmEntity testFilm3 = new FilmEntity();
         testFilm3.setTitle("Tete");
-        Film testFilm4 = new Film();
+        FilmEntity testFilm4 = new FilmEntity();
         testFilm4.setTitle("T    ëton");
-        Film testFilm5 = new Film();
+        FilmEntity testFilm5 = new FilmEntity();
         testFilm5.setTitle("Pirouett  e");
-        List<Film> testFilmList = new ArrayList<>();
+        List<FilmEntity> testFilmList = new ArrayList<>();
         testFilmList.add(testFilm1);
         testFilmList.add(testFilm2);
         testFilmList.add(testFilm3);

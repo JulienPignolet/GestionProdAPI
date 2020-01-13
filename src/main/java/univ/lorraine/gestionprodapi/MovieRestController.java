@@ -11,7 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import univ.lorraine.gestionprodapi.dao.FilmDAO;
-import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.dto.FilmDTO;
+import univ.lorraine.gestionprodapi.entity.FilmEntity;
 import univ.lorraine.gestionprodapi.facade.FilmResearch;
 import univ.lorraine.gestionprodapi.service.MetricService;
 
@@ -35,7 +36,7 @@ public class MovieRestController {
 
     @ApiOperation(value = "Récupère l'ensemble des films spécifiés (selon si title est spécifié ou non)")
     @GetMapping
-    public ResponseEntity<List<Film>> searchMovies(@ApiParam(value = "Paramètre optionnel. Si title n'est pas renseigné récupère l'ensemble des films, sinon lance une recherche sur les titres contenant cette expression") @RequestParam(value = "title", required = false) String exp) {
+    public ResponseEntity<List<FilmEntity>> searchMovies(@ApiParam(value = "Paramètre optionnel. Si title n'est pas renseigné récupère l'ensemble des films, sinon lance une recherche sur les titres contenant cette expression") @RequestParam(value = "title", required = false) String exp) {
         if (StringUtils.isBlank(exp)) {
             return  ResponseEntity.ok(filmDAO.findAll());
         } else {
@@ -46,15 +47,15 @@ public class MovieRestController {
     @ApiOperation(value = "Récupère le film grâce à son id si celui-ci existe")
     @GetMapping("/{id}")
     public ResponseEntity findOneMovie(@ApiParam(value = "id du film") @PathVariable Long id) {
-        Film film = filmDAO.findOneById(id);
+        FilmEntity film = filmDAO.findOneById(id);
 
         return film != null ? ResponseEntity.ok(film) : ResponseEntity.notFound().build();
     }
 
     @ApiOperation(value = "Création d'un film")
     @PostMapping
-    public ResponseEntity create(@ApiParam(value = "json du film") @Valid @RequestBody Film film) {
-        return ResponseEntity.ok(filmDAO.save(film));
+    public ResponseEntity create(@ApiParam(value = "json du film") @Valid @RequestBody FilmDTO filmDTO) {
+        return ResponseEntity.ok(filmDAO.save(new FilmEntity(filmDTO)));
     }
 
     @ApiOperation(value = "Suprresion d'un film à l'aide de son id si celui-ci existe")
@@ -69,12 +70,13 @@ public class MovieRestController {
 
     @ApiOperation(value = "Modification d'un film à l'aide de son id si celui-ci existe")
     @PutMapping("/{id}")
-    public ResponseEntity put(@ApiParam(value = "id du film") @PathVariable Long id, @ApiParam(value = "json du film") @Valid @RequestBody Film film) {
+    public ResponseEntity put(@ApiParam(value = "id du film") @PathVariable Long id, @ApiParam(value = "json du film") @Valid @RequestBody FilmDTO filmDTO) {
+        FilmEntity filmEntity = new FilmEntity(filmDTO);
         if (!findId(id)) {
             ResponseEntity.badRequest().build();
         }
-        film.setId(id);
-        return ResponseEntity.ok(filmDAO.save(film));
+        filmEntity.setId(id);
+        return ResponseEntity.ok(filmDAO.save(filmEntity));
     }
 
     private boolean findId(Long id) {

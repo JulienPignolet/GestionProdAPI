@@ -1,7 +1,7 @@
 package univ.lorraine.gestionprodapi.facade;
 
 import org.junit.platform.commons.util.StringUtils;
-import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.entity.FilmEntity;
 
 import java.text.Normalizer;
 import java.util.*;
@@ -23,12 +23,12 @@ public class FilmResearch {
      * @param exp expression à trouver
      * @return Liste de films
      */
-    public static List<Film> research(List<Film> allFilms, String exp) {
+    public static List<FilmEntity> research(List<FilmEntity> allFilms, String exp) {
         if (StringUtils.isBlank(exp) || allFilms == null || allFilms.isEmpty()) {
             return new ArrayList<>();
         }
-        List<Map.Entry<Film, Integer>> filmByScore = new ArrayList<>();
-        for (Film film : allFilms) {
+        List<Map.Entry<FilmEntity, Integer>> filmByScore = new ArrayList<>();
+        for (FilmEntity film : allFilms) {
              int score = evalScore(film.getTitle(), exp);
              if (score != -2) {
                  filmByScore.add(new AbstractMap.SimpleImmutableEntry<>(film, score));

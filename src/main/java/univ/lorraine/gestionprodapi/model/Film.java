@@ -1,4 +1,4 @@
-package univ.lorraine.gestionprodapi.entity;
+package univ.lorraine.gestionprodapi.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -7,53 +7,51 @@ import javax.persistence.*;
 import java.util.Date;
 
 @ApiModel(description = "Classe représentant un film")
-@Entity
-@Table(name = "FILM")
-public class Film {
-
+@MappedSuperclass
+public abstract class Film {
     @ApiModelProperty(notes = "Identifiant unique", example = "1", hidden = true)
     @Id
     @GeneratedValue
     @Column(name = "Id", nullable = false)
-    private Long id;
+    protected Long id;
 
     @ApiModelProperty(notes = "Popularité", example = "565.278", position = 1)
     @Column(name = "Popularity")
-    private double popularity;
+    protected double popularity;
 
     @ApiModelProperty(notes = "Nombre de votes", example = "198", position = 2)
     @Column(name = "Vote_count")
-    private Long voteCount;
+    protected Long voteCount;
 
     @ApiModelProperty(notes = "Catégorie adulte", example = "false", position = 3)
     @Column(name = "adult")
-    private boolean adult;
+    protected boolean adult;
 
     @ApiModelProperty(notes = "Langage original", example = "en", position = 4)
     @Column(name = "Original_language")
-    private String originalLanguage;
+    protected String originalLanguage;
 
     @ApiModelProperty(notes = "Titre", example = "It Chapter Two", position = 5)
     @Column(name = "Title")
-    private String title;
+    protected String title;
 
     @ApiModelProperty(notes = "Titre original", example = "It Chapter Two", position = 6)
     @Column(name = "Original_title")
-    private String originalTitle;
+    protected String originalTitle;
 
     @ApiModelProperty(notes = "Vote moyen", example = "7.2", position = 7)
     @Column(name = "Vote_average")
-    private String voteAverage;
+    protected String voteAverage;
 
     @ApiModelProperty(notes = "Résumé", example = "27 years after overcoming the malevolent supernatural entity Pennywise, the former members of the Losers' Club, who have grown up and moved away from Derry, are brought back together by a devastating phone call.", position = 8)
     @Lob // pour les string > 255 char
     @Column(name = "Overview")
-    private String overview;
+    protected String overview;
 
     @ApiModelProperty(notes = "Date de sortie", example = "2019-09-06", position = 9)
     @Temporal(TemporalType.DATE)
     @Column(name = "Release_date")
-    private Date releaseDate;
+    protected Date releaseDate;
 
     public Long getId() {
         return id;
