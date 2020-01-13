@@ -1,34 +1,11 @@
-package univ.lorraine.gestionprodapi.entity;
+package univ.lorraine.gestionprodapi.dto;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import univ.lorraine.gestionprodapi.dto.FilmDTO;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@ApiModel(description = "Classe représentant un film")
-@Entity
-@Table(name = "FILM")
-public class Film {
-
-    public Film() {
-
-    }
-
-    public Film(FilmDTO filmDTO) {
-        id = filmDTO.getId();
-        popularity = filmDTO.getPopularity();
-        voteCount = filmDTO.getVoteCount();
-        adult = filmDTO.isAdult();
-        originalLanguage = filmDTO.getOriginalLanguage();
-        title = filmDTO.getTitle();
-        originalTitle = filmDTO.getOriginalTitle();
-        voteAverage = filmDTO.getVoteAverage();
-        overview = filmDTO.getOverview();
-        releaseDate = filmDTO.getReleaseDate();
-    }
-
+public class FilmDTO {
     @ApiModelProperty(notes = "Identifiant unique", example = "1", hidden = true)
     @Id
     @GeneratedValue
@@ -121,12 +98,12 @@ public class Film {
         this.title = title;
     }
 
-    public String getOverview() {
-        return overview;
+    public String getOriginalTitle() {
+        return originalTitle;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
     }
 
     public String getVoteAverage() {
@@ -137,19 +114,19 @@ public class Film {
         this.voteAverage = voteAverage;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
     public Date getReleaseDate() {
         return releaseDate;
     }
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
     }
 }
