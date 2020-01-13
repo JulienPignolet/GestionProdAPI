@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdApi.init;
+package univ.lorraine.gestionprodapi.init;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import univ.lorraine.GestionProdApi.dao.FilmDAO;
-import univ.lorraine.GestionProdApi.entity.Film;
+import univ.lorraine.gestionprodapi.dao.FilmDAO;
+import univ.lorraine.gestionprodapi.entity.Film;
 
 import java.io.IOException;
 import java.io.InputStream;

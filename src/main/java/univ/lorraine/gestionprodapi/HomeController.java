@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdApi;
+package univ.lorraine.gestionprodapi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -7,9 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import univ.lorraine.GestionProdApi.service.MetricService;
+import univ.lorraine.gestionprodapi.service.MetricService;
 
 import java.util.Map;
 
@@ -34,7 +33,7 @@ public class HomeController {
      }
      **/
     @ApiOperation(value = "Récupération de toutes les données liées aux metrics de l'application")
-    @RequestMapping(value = "/status-metric", method = RequestMethod.GET)
+    @GetMapping(value = "/status-metric")
     @ResponseBody
     public Map getStatusMetric() {
         return metricService.getFullMetric();

@@ -1,10 +1,10 @@
-package univ.lorraine.GestionProdApi.facade;
+package univ.lorraine.gestionprodapi.facade;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
-import univ.lorraine.GestionProdApi.entity.Film;
+import univ.lorraine.gestionprodapi.entity.Film;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

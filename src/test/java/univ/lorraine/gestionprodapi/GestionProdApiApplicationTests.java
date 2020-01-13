@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdApi;
+package univ.lorraine.gestionprodapi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

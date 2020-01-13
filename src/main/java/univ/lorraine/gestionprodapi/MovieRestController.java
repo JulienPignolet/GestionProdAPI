@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdApi;
+package univ.lorraine.gestionprodapi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,17 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import univ.lorraine.GestionProdApi.dao.FilmDAO;
-import univ.lorraine.GestionProdApi.entity.Film;
-import univ.lorraine.GestionProdApi.facade.FilmResearch;
-import univ.lorraine.GestionProdApi.service.MetricService;
+import univ.lorraine.gestionprodapi.dao.FilmDAO;
+import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.facade.FilmResearch;
+import univ.lorraine.gestionprodapi.service.MetricService;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(("/movies"))
-@Api(value = "Films", tags = "Films")
+@Api(value = "Films", description = "Accès aux films" ,tags = "Films")
 public class MovieRestController {
     private final FilmDAO filmDAO;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

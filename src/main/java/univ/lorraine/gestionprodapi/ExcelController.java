@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdApi;
+package univ.lorraine.gestionprodapi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import univ.lorraine.GestionProdApi.dao.FilmDAO;
-import univ.lorraine.GestionProdApi.entity.Film;
-import univ.lorraine.GestionProdApi.facade.ExcelReport;
-import univ.lorraine.GestionProdApi.facade.FilmResearch;
+import univ.lorraine.gestionprodapi.dao.FilmDAO;
+import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.facade.ExcelReport;
+import univ.lorraine.gestionprodapi.facade.FilmResearch;
 
 import java.util.List;
 
 @Controller
 @RequestMapping(("/excel"))
-@Api(value = "Excel", description = "Extraction excel", tags = "Excel")
+@Api(value = "Excel", tags = "Excel")
 public class ExcelController {
     private final FilmDAO filmDAO;
 

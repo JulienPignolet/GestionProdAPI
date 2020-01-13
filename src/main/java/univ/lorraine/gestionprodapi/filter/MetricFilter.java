@@ -1,9 +1,9 @@
-package univ.lorraine.GestionProdApi.filter;
+package univ.lorraine.gestionprodapi.filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import univ.lorraine.GestionProdApi.service.MetricService;
+import univ.lorraine.gestionprodapi.service.MetricService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

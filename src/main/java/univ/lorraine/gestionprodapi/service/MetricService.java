@@ -1,4 +1,4 @@
-package univ.lorraine.GestionProdApi.service;
+package univ.lorraine.gestionprodapi.service;
 
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,10 @@
-package univ.lorraine.GestionProdApi;
+package univ.lorraine.gestionprodapi;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import univ.lorraine.GestionProdApi.entity.Film;
-import univ.lorraine.GestionProdApi.facade.FilmResearch;
+import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.facade.FilmResearch;
 
 import java.util.ArrayList;
 import java.util.List;
