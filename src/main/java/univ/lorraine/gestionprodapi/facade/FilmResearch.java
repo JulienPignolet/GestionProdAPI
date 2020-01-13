@@ -9,6 +9,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class FilmResearch {
+    private FilmResearch() {
+
+    }
+
     // Pattern pour enlever les adds du normalizer
     private static final Pattern DIACRITICS_AND_FRIENDS
             = Pattern.compile("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
@@ -70,7 +74,7 @@ public class FilmResearch {
             return score;
         } else {
             int compare = compareTwoLetter(filmTitle.charAt(0), exp.charAt(0));
-            return  compare == -2 ? -2 : compareTwoWords(filmTitle.substring(1), exp.substring(compare == -1 ? 0 : 1), score + compare);
+            return  compare == -2 ? -2 : compareTwoWords(filmTitle.substring(1), exp.substring(isSpace(compare)), score + compare);
         }
     }
 
@@ -114,5 +118,13 @@ public class FilmResearch {
             str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
         }
         return str;
+    }
+
+    /**
+     * @param compare permet de savoir si le dernier caractère est un espace
+     * @return 0 si compare = espace, 1 sinon
+     */
+    private static int isSpace(int compare) {
+        return compare == -1 ? 0 : 1;
     }
 }
