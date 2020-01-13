@@ -1,12 +1,10 @@
 package univ.lorraine.gestionprodapi.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import univ.lorraine.gestionprodapi.dto.FilmDTO;
 import univ.lorraine.gestionprodapi.model.Film;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "FILM")
