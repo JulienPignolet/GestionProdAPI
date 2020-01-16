@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
-import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.dto.FilmDTO;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MovieControllerTest {
+public class MovieControllerTests {
 
     @Autowired
     MovieRestController movieController;
@@ -41,7 +41,7 @@ public class MovieControllerTest {
      */
     @Test
     public void testCreationMovie(){
-        Film temp = createMovie();
+        FilmDTO temp = createMovie();
         assertTrue(movieController.create(temp).getStatusCode() == HttpStatus.OK );
     }
 
@@ -60,12 +60,12 @@ public class MovieControllerTest {
      */
     @Test
     public void testUpdateMovie(){
-       Film temp = createMovie();
+        FilmDTO temp = createMovie();
         assertTrue(movieController.put(2L,temp).getStatusCode() == HttpStatus.OK );
     }
 
-    private Film createMovie(){
-        Film temp = new Film();
+    private FilmDTO createMovie(){
+        FilmDTO temp = new FilmDTO();
         temp.setPopularity(565.278);
         temp.setAdult(false);
         temp.setVoteCount(198L);

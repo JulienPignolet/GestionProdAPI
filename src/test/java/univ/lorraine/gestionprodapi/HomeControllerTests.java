@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class HomeControllerTest {
+public class HomeControllerTests {
 
     @Autowired
     HomeController homeController;
