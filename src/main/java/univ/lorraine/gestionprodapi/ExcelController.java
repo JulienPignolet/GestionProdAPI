@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import univ.lorraine.gestionprodapi.dao.FilmDAO;
-import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.entity.FilmEntity;
 import univ.lorraine.gestionprodapi.facade.ExcelReport;
 import univ.lorraine.gestionprodapi.facade.FilmResearch;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(("/excel"))
-@Api(value = "Excel", tags = "Excel")
+@Api(value = "Excel", description = "Extraction Excel", tags = "Excel")
 public class ExcelController {
     private final FilmDAO filmDAO;
 
@@ -31,7 +31,7 @@ public class ExcelController {
     @ApiOperation(value = "Extraction excel avec recherche")
     @GetMapping
     public ModelAndView getExcel(@ApiParam(value = "Paramètre optionnel. Si title n'est pas renseigné récupère l'ensemble des films, sinon lance une recherche sur les titres contenant cette expression") @RequestParam(value = "title", required = false) String exp) {
-        List<Film> filmList = StringUtils.isBlank(exp) ? filmDAO.findAll() : FilmResearch.research(filmDAO.findAll(), exp);
+        List<FilmEntity> filmList = StringUtils.isBlank(exp) ? filmDAO.findAll() : FilmResearch.research(filmDAO.findAll(), exp);
         return new ModelAndView(new ExcelReport(), "filmList", filmList);
     }
 }

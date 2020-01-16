@@ -3,12 +3,14 @@ package univ.lorraine.gestionprodapi.init;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import univ.lorraine.gestionprodapi.dao.FilmDAO;
-import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.entity.FilmEntity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +26,9 @@ public class DataInit implements ApplicationRunner {
     private final FilmDAO filmDAO;
 
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Autowired
     public DataInit(FilmDAO filmDAO) {
@@ -50,12 +55,12 @@ public class DataInit implements ApplicationRunner {
             filmList.forEach(film -> parseFilmObject((JSONObject) film));
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
     private void parseFilmObject(JSONObject film) {
-        Film temp = new Film();
+        FilmEntity temp = new FilmEntity();
 
         temp.setTitle((String) film.get("title"));
         temp.setVoteCount((Long) film.get("vote_count"));
@@ -69,7 +74,7 @@ public class DataInit implements ApplicationRunner {
         try {
             temp.setReleaseDate(df.parse((String) film.get("release_date")));
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         filmDAO.save(temp);

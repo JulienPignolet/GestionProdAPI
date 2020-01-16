@@ -1,7 +1,7 @@
 package univ.lorraine.gestionprodapi.facade;
 
 import org.junit.platform.commons.util.StringUtils;
-import univ.lorraine.gestionprodapi.entity.Film;
+import univ.lorraine.gestionprodapi.entity.FilmEntity;
 
 import java.text.Normalizer;
 import java.util.*;
@@ -9,6 +9,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class FilmResearch {
+    private FilmResearch() {
+
+    }
+
     // Pattern pour enlever les adds du normalizer
     private static final Pattern DIACRITICS_AND_FRIENDS
             = Pattern.compile("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
@@ -19,12 +23,12 @@ public class FilmResearch {
      * @param exp expression à trouver
      * @return Liste de films
      */
-    public static List<Film> research(List<Film> allFilms, String exp) {
+    public static List<FilmEntity> research(List<FilmEntity> allFilms, String exp) {
         if (StringUtils.isBlank(exp) || allFilms == null || allFilms.isEmpty()) {
             return new ArrayList<>();
         }
-        List<Map.Entry<Film, Integer>> filmByScore = new ArrayList<>();
-        for (Film film : allFilms) {
+        List<Map.Entry<FilmEntity, Integer>> filmByScore = new ArrayList<>();
+        for (FilmEntity film : allFilms) {
              int score = evalScore(film.getTitle(), exp);
              if (score != -2) {
                  filmByScore.add(new AbstractMap.SimpleImmutableEntry<>(film, score));
@@ -70,7 +74,7 @@ public class FilmResearch {
             return score;
         } else {
             int compare = compareTwoLetter(filmTitle.charAt(0), exp.charAt(0));
-            return  compare == -2 ? -2 : compareTwoWords(filmTitle.substring(1), exp.substring(compare == -1 ? 0 : 1), score + compare);
+            return  compare == -2 ? -2 : compareTwoWords(filmTitle.substring(1), exp.substring(isSpace(compare)), score + compare);
         }
     }
 
@@ -114,5 +118,13 @@ public class FilmResearch {
             str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
         }
         return str;
+    }
+
+    /**
+     * @param compare permet de savoir si le dernier caractère est un espace
+     * @return 0 si compare = espace, 1 sinon
+     */
+    private static int isSpace(int compare) {
+        return compare == -1 ? 0 : 1;
     }
 }
