@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import univ.lorraine.gestionprodapi.dao.FilmDAO;
 import univ.lorraine.gestionprodapi.entity.Film;
 import univ.lorraine.gestionprodapi.facade.FilmResearch;
-import univ.lorraine.gestionprodapi.service.MetricService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,9 +23,6 @@ import java.util.List;
 public class MovieRestController {
     private final FilmDAO filmDAO;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    private MetricService metricServiceBase;
 
     @Autowired
     public MovieRestController(FilmDAO filmDAO) {
@@ -57,7 +53,7 @@ public class MovieRestController {
         return ResponseEntity.ok(filmDAO.save(film));
     }
 
-    @ApiOperation(value = "Suprresion d'un film à l'aide de son id si celui-ci existe")
+    @ApiOperation(value = "Suppresion d'un film à l'aide de son id si celui-ci existe")
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@ApiParam(value = "id du film") @PathVariable Long id){
         if (!findId(id)) {
