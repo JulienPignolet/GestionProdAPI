@@ -97,6 +97,8 @@
 					<skip>true</skip>
 					<!-- Show 100% of the lines from the stack trace (doesn't work) -->
 					<trimStackTrace>false</trimStackTrace>
+
+					<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
 				</configuration>
 				<executions>
 					<execution>
