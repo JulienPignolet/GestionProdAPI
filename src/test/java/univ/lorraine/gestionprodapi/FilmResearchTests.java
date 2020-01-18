@@ -12,7 +12,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-//
 class FilmResearchTests {
     @ParameterizedTest
     @CsvSource({"Tĥïŝ ĩš â fůňķŷ Šťŕĭńġ,This is a funky String,[Test Suppression des accents]",
