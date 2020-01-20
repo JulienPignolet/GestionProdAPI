@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import univ.lorraine.gestionprodapi.service.MetricService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -24,6 +26,10 @@ public class HomeController {
         this.metricService = metricService;
     }
 
+    @GetMapping(value = "/")
+    public void redirect(HttpServletResponse response) throws IOException {
+        response.sendRedirect("/swagger-ui.html");
+    }
     // API METRICS
     /**
      @RequestMapping(value = "/metric-graph-data", method = RequestMethod.GET)
