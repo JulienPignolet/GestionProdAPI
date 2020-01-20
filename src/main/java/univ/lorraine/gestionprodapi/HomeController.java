@@ -26,7 +26,7 @@ public class HomeController {
         this.metricService = metricService;
     }
 
-    @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public void redirect(HttpServletResponse response) throws IOException {
         response.sendRedirect("/swagger-ui.html");
     }
