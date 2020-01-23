@@ -11,13 +11,11 @@ public class FilmPartialExtractInput extends FilmExtractInput {
 
     @Override
     public String[] getExtractHeaders() {
-        String[] extractHeaders = {"Id", "Titre", "Résumé", "Date de sortie", "Vote moyen"};
-        return extractHeaders;
+        return new String[] {"Id", "Titre", "Résumé", "Date de sortie", "Vote moyen"};
     }
 
     @Override
     public String[] getExtractColumns() {
-        String[] extractColumns = {"getId", "getTitle", "getOverview", "getReleaseDate", "getVoteAverage"};
-        return extractColumns;
+        return new String[] {"getId", "getTitle", "getOverview", "getReleaseDate", "getVoteAverage"};
     }
 }

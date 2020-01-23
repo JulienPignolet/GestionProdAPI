@@ -14,15 +14,14 @@ public class FilmFullExtractInput extends FilmExtractInput {
 
     @Override
     public String[] getExtractHeaders() {
-        String[] extractHeaders = {"Id", "Titre", "Résumé", "Date de sortie", "Titre original",
+        return new String[] {"Id", "Titre", "Résumé", "Date de sortie", "Titre original",
                 "Langage original", "Popularité", "Nombre de votes", "Vote moyen", "Catégorie adulte"};
-        return extractHeaders;
      }
 
     @Override
     public String[] getExtractColumns() {
-        String[] extractColumns = {"getId", "getTitle", "getOverview", "getReleaseDate", "getOriginalTitle",
+
+        return new String[] {"getId", "getTitle", "getOverview", "getReleaseDate", "getOriginalTitle",
                 "getOriginalLanguage", "getPopularity", "getVoteCount", "getVoteAverage", "isAdult"};
-        return extractColumns;
     }
 }
