@@ -16,19 +16,19 @@ public abstract class ExtractExpert {
 
     /**
      * Extraction propre à chaque format
-     * @param filmFullExtractInput objet d'entrée pour l'extraction
+     * @param filmExtractInput objet d'entrée pour l'extraction
      */
-    public ModelAndView extract(FilmFullExtractInput filmFullExtractInput) {
-        if (filmFullExtractInput.getExtension().equals(extension)) {
-            return callAdapter(filmFullExtractInput);
+    public ModelAndView extract(FilmExtractInput filmExtractInput) {
+        if (filmExtractInput.getExtension().equals(extension)) {
+            return callAdapter(filmExtractInput);
         } else {
-            return nextExpert != null ? nextExpert.extract(filmFullExtractInput) : null;
+            return nextExpert != null ? nextExpert.extract(filmExtractInput) : null;
         }
     }
 
     /**
      * Adapter spécifique à chaque expert/format
-     * @param filmFullExtractInput objet d'entrée pour l'extraction
+     * @param filmExtractInput objet d'entrée pour l'extraction
      */
-    public abstract  ModelAndView callAdapter(FilmFullExtractInput filmFullExtractInput);
+    public abstract  ModelAndView callAdapter(FilmExtractInput filmExtractInput);
 }

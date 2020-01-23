@@ -16,6 +16,7 @@ import univ.lorraine.gestionprodapi.facade.FilmResearch;
 import univ.lorraine.gestionprodapi.facade.extract.ExtractExcelExpert;
 import univ.lorraine.gestionprodapi.facade.extract.ExtractExpert;
 import univ.lorraine.gestionprodapi.facade.extract.FilmFullExtractInput;
+import univ.lorraine.gestionprodapi.facade.extract.FilmPartialExtractInput;
 
 import java.util.List;
 
@@ -34,10 +35,17 @@ public class ExtractController {
         extractExpert = new ExtractExcelExpert(null);
     }
 
-    @ApiOperation(value = "Extraction excel avec recherche")
-    @GetMapping(value = "/excel")
-    public ModelAndView getExcel(@ApiParam(value = "Paramètre optionnel. Si title n'est pas renseigné récupère l'ensemble des films, sinon lance une recherche sur les titres contenant cette expression") @RequestParam(value = "title", required = false) String exp) {
+    @ApiOperation(value = "Extraction excel avec recherche de tous les champs")
+    @GetMapping(value = "/excel/full")
+    public ModelAndView getFullExcel(@ApiParam(value = "Paramètre optionnel. Si title n'est pas renseigné récupère l'ensemble des films, sinon lance une recherche sur les titres contenant cette expression") @RequestParam(value = "title", required = false) String exp) {
         List<FilmEntity> filmList = StringUtils.isBlank(exp) ? filmDAO.findAll() : FilmResearch.research(filmDAO.findAll(), exp);
         return extractExpert.extract(new FilmFullExtractInput("xls", filmList));
+    }
+
+    @ApiOperation(value = "Extraction excel avec recherche d'un nombre limités de champs")
+    @GetMapping(value = "excel/partial")
+    public ModelAndView getPartialExcel(@ApiParam(value = "Paramètre optionnel. Si title n'est pas renseigné récupère l'ensemble des films, sinon lance une recherche sur les titres contenant cette expression") @RequestParam(value = "title", required = false) String exp) {
+        List<FilmEntity> filmList = StringUtils.isBlank(exp) ? filmDAO.findAll() : FilmResearch.research(filmDAO.findAll(), exp);
+        return extractExpert.extract(new FilmPartialExtractInput("xls", filmList));
     }
 }

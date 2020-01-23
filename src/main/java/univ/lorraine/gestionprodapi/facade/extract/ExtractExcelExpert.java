@@ -11,7 +11,7 @@ public class ExtractExcelExpert extends ExtractExpert {
     }
 
     @Override
-    public ModelAndView callAdapter(FilmFullExtractInput filmFullExtractInput) {
-        return new ModelAndView(new ExcelAdapter(), "extractInput", filmFullExtractInput);
+    public ModelAndView callAdapter(FilmExtractInput filmExtractInput) {
+        return new ModelAndView(new ExcelAdapter(), "extractInput", filmExtractInput);
     }
 }

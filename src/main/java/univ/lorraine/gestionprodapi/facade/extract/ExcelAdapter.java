@@ -18,20 +18,20 @@ import java.util.Map;
 public class ExcelAdapter extends AbstractXlsView {
     @Override
     protected void buildExcelDocument(Map<String, Object> map, Workbook workbook, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        FilmFullExtractInput filmFullExtractInput = (FilmFullExtractInput) map.get("extractInput");
+        FilmExtractInput filmExtractInput = (FilmExtractInput) map.get("extractInput");
         httpServletResponse.setHeader("Content-Disposition",
-                "attachment;filename=\"" + filmFullExtractInput.getFileName() + "." + filmFullExtractInput.getExtension() + "\"");
+                "attachment;filename=\"" + filmExtractInput.getFileName() + "." + filmExtractInput.getExtension() + "\"");
         Sheet sheet = workbook.createSheet("Film Data");
         int rowNum = 0;
         Row header = sheet.createRow(rowNum++);
         int columnNum = 0;
-        for (String headerName : filmFullExtractInput.getExtractHeaders()) {
+        for (String headerName : filmExtractInput.getExtractHeaders()) {
             header.createCell(columnNum++).setCellValue(headerName);
         }
-        for (FilmEntity film : filmFullExtractInput.getFilmList()) {
+        for (FilmEntity film : filmExtractInput.getFilmList()) {
             columnNum = 0;
             Row row = sheet.createRow(rowNum++);
-            for (String column : filmFullExtractInput.getExtractColumns()) {
+            for (String column : filmExtractInput.getExtractColumns()) {
                 Method method = FilmEntity.class.getMethod(column);
                 createCell(row, columnNum++, method.invoke(film));
             }
