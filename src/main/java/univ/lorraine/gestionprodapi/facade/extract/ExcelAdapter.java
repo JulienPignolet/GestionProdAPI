@@ -20,7 +20,7 @@ public class ExcelAdapter extends AbstractXlsView {
     protected void buildExcelDocument(Map<String, Object> map, Workbook workbook, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
         FilmFullExtractInput filmFullExtractInput = (FilmFullExtractInput) map.get("extractInput");
         httpServletResponse.setHeader("Content-Disposition",
-                "attachment;filename=\"" + filmFullExtractInput.getFILE_NAME() + "." + filmFullExtractInput.getExtension() + "\"");
+                "attachment;filename=\"" + filmFullExtractInput.getFileName() + "." + filmFullExtractInput.getExtension() + "\"");
         Sheet sheet = workbook.createSheet("Film Data");
         int rowNum = 0;
         Row header = sheet.createRow(rowNum++);
