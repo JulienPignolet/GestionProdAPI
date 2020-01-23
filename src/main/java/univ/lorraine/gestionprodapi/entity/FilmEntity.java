@@ -23,5 +23,6 @@ public class FilmEntity  extends Film {
         voteAverage = filmDTO.getVoteAverage();
         overview = filmDTO.getOverview();
         releaseDate = filmDTO.getReleaseDate();
+        popularity = filmDTO.getPopularity();
     }
 }
