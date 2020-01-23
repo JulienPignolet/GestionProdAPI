@@ -8,7 +8,7 @@ import java.util.List;
  * Paramètres d'entrée pour l'extraction
  */
 public class FilmFullExtractInput {
-    private static final String fileName = "films"; // Nom du fichier
+    private static final String FILE_NAME = "films"; // Nom du fichier
     private final String[] extractHeaders = {"Id", "Titre", "Résumé", "Date de sortie", "Titre original",
             "Langage original", "Popularité", "Nombre de votes", "Vote moyen", "Catégorie adulte"} ; // Titre des colonnes de l'extraction
     private final String[] extractColumns = {"getId", "getTitle", "getOverview", "getReleaseDate", "getOriginalTitle",
@@ -22,7 +22,7 @@ public class FilmFullExtractInput {
     }
 
     public String getFileName() {
-        return fileName;
+        return FILE_NAME;
     }
 
     public String[] getExtractHeaders() {
