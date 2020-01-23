@@ -7,8 +7,8 @@ node {
     def nomDeLimage = 'g2-movies'
 
     stage('checkout') {
-        //git branch: 'master', url: 'https://github.com/JulienPignolet/GestionProdAPI.git'
-        checkout scm
+        git branch: 'develop', url: 'https://github.com/JulienPignolet/GestionProdAPI.git'
+        //checkout scm
         commitId = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     }
 
