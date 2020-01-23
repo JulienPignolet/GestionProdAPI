@@ -6,18 +6,12 @@ import org.springframework.web.servlet.ModelAndView;
  * Extraction excel
  */
 public class ExtractExcelExpert extends ExtractExpert {
-    private static final String EXTENSION = "xls";
-
     public ExtractExcelExpert(ExtractExpert nextExpert) {
-        super(nextExpert);
+        super(nextExpert, "xls");
     }
 
     @Override
-    public ModelAndView extract(FilmFullExtractInput filmFullExtractInput) {
-        if (filmFullExtractInput.getExtension().equals(EXTENSION)) {
-            return new ModelAndView(new ExcelAdapter(), "extractInput", filmFullExtractInput);
-        } else {
-            return nextExpert != null ? nextExpert.extract(filmFullExtractInput) : null;
-        }
+    public ModelAndView callAdapter(FilmFullExtractInput filmFullExtractInput) {
+        return new ModelAndView(new ExcelAdapter(), "extractInput", filmFullExtractInput);
     }
 }
